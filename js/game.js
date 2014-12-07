@@ -16,6 +16,9 @@ var CritChanceText;
 var incCritChanceCost = 100;
 var incCritChanceCostText;
 var critMulti = 2;
+var CritMultiText;
+var incCritMultiCost = 25;
+var incCritMultiCostText;
 
 window.addEventListener("load", function() {
 	// call functions and make things happen here, and nowhere else
@@ -24,9 +27,11 @@ window.addEventListener("load", function() {
 	minText = document.getElementById("minimum");
 	maxText = document.getElementById("maximum");
 	critChanceText = document.getElementById("critChance");
+	critMultiText = document.getElementById("critMulti");
 	incMinCostText = document.getElementById("incMinCost");
 	incMaxCostText = document.getElementById("incMaxCost");
 	incCritChanceCostText = document.getElementById("incCritChanceCost");
+	incCritMultiCostText = document.getElementById("incCritMultiCost");
 	setupButtons();
 	setInterval(randomBoost, time);
 	tick();
@@ -35,7 +40,8 @@ window.addEventListener("load", function() {
 function setupButtons() {
 	var incMin = document.getElementById("incMin");
 	var incMax = document.getElementById("incMax");
-	var incMax = document.getElementById("incCritChance");
+	var incCritChance = document.getElementById("incCritChance");
+	var incCritMulti = document.getElementById("incCritMulti");
 	var totalText = document.getElementById("totalPoints");
 	incMin.addEventListener("click", function(event) {
 		if((total>incMinCost)&&(min<max))
@@ -59,7 +65,7 @@ function setupButtons() {
 			totalText.innerHTML = total;
 		}
 	});
-		incMax.addEventListener("click", function(event) {
+	incCritChance.addEventListener("click", function(event) {
 		if((total>incCritChanceCost))
 		{
 			critChance += 0.01;
@@ -67,6 +73,17 @@ function setupButtons() {
 			total -= incCritChanceCost;
 			incCritChanceCost = (critChance*100)+100;
 			incCritChanceCostText.innerHTML = incCritChanceCost;
+			totalText.innerHTML = total;
+		}
+	});
+	incCritMulti.addEventListener("click", function(event) {
+		if((total>incCritMultiCost))
+		{
+			critMulti += 1;
+			critMultiText.innerHTML = critMulti;
+			total -= incCritMultiCost;
+			incCritMultiCost = Math.pow((critMulti+3), 2);
+			incCritMultiCostText.innerHTML = incCritMultiCost;
 			totalText.innerHTML = total;
 		}
 	});
