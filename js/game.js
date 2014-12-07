@@ -12,6 +12,9 @@ var maxText;
 var incMaxCost = 200;
 var incMaxCostText;
 var critChance = 0.00;
+var CritChanceText;
+var incCritChanceCost = 100;
+var incCritChanceCostText;
 var critMulti = 2;
 
 window.addEventListener("load", function() {
@@ -20,8 +23,10 @@ window.addEventListener("load", function() {
 	boostText = document.getElementById("lastAddition");
 	minText = document.getElementById("minimum");
 	maxText = document.getElementById("maximum");
+	critChanceText = document.getElementById("critChance");
 	incMinCostText = document.getElementById("incMinCost");
 	incMaxCostText = document.getElementById("incMaxCost");
+	incCritChanceCostText = document.getElementById("incCritChanceCost");
 	setupButtons();
 	setInterval(randomBoost, time);
 	tick();
@@ -30,6 +35,7 @@ window.addEventListener("load", function() {
 function setupButtons() {
 	var incMin = document.getElementById("incMin");
 	var incMax = document.getElementById("incMax");
+	var incMax = document.getElementById("incCritChance");
 	var totalText = document.getElementById("totalPoints");
 	incMin.addEventListener("click", function(event) {
 		if((total>incMinCost)&&(min<max))
@@ -50,6 +56,17 @@ function setupButtons() {
 			total -= incMaxCost;
 			incMaxCost = max*2;
 			incMaxCostText.innerHTML = incMaxCost;
+			totalText.innerHTML = total;
+		}
+	});
+		incMax.addEventListener("click", function(event) {
+		if((total>incCritChanceCost))
+		{
+			critChance += 0.01;
+			critChanceText.innerHTML = critChance.toFixed(2);
+			total -= incCritChanceCost;
+			incCritChanceCost = (critChance*100)+100;
+			incCritChanceCostText.innerHTML = incCritChanceCost;
 			totalText.innerHTML = total;
 		}
 	});
